@@ -7,6 +7,7 @@ const mustache = require("mustache");
 app.set('views', __dirname + "/");
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
+app.use(express.static(__dirname + '/public'));
 
 function checkfile(file) {
     return fs.existsSync("/" + file)
