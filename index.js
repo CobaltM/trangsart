@@ -4,12 +4,12 @@ const fs = require("fs")
 const engines = require('consolidate');
 const mustache = require("mustache");
 
-app.set('views', __dirname + "/public_html");
+app.set('views', __dirname + "/");
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
 function checkfile(file) {
-    return fs.existsSync("public_html/" + file)
+    return fs.existsSync("/" + file)
 }
 
 app.get('/:filename', (req, res) => {
