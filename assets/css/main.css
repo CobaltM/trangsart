@@ -2602,6 +2602,8 @@ input, select, textarea {
 			max-width: 40%;
 		}
 
+
+
 			.image.left img, .image.right img {
 				width: 100%;
 			}
@@ -2630,6 +2632,11 @@ input, select, textarea {
 
 			.image.fit img {
 				width: 100%;
+
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                object-fit: cover;
 			}
 
 		.image.main {
@@ -2643,7 +2650,12 @@ input, select, textarea {
 			}
 
 			.image.main img {
-				width: 100%;
+                width: 100%;
+                max-height: 500px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                object-fit: cover;
 			}
 
 		@media screen and (max-width: 736px) {
