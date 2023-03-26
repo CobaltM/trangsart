@@ -181,8 +181,9 @@ input, select, textarea {
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		font-family: "Oswald", Courier, monospace;
-		font-weight: 900;
+
+		font-family: Courier New, monospace;
+		font-weight: 200;
 		line-height: 1.5;
 		letter-spacing: 0.075em;
 		text-transform: uppercase;
@@ -3398,7 +3399,8 @@ input, select, textarea {
 				}
 
 		#intro h1 {
-			font-size: 5rem;
+			font-size: 6rem;
+			letter-spacing: 0.15em;
 			line-height: 1;
 		}
 
