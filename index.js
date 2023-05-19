@@ -11,24 +11,29 @@ app.get('/', function (req, res) {
   { title : 'Home' }
   )
 })
+app.use(express.static('./holden-ham-crochet'));
 app.get('/holden-ham-crochet', function (req, res) {
   res.render('holden-ham-crochet.html',
-  { title : 'Home' }
+  { title : 'crochet' }
   )
 })
+app.use(express.static('./prints'));
 app.get('/prints', function (req, res) {
   res.render('prints.html',
-  { title : 'Home' }
+  { title : 'prints' }
   )
 })
+app.use(express.static('./paintings'));
 app.get('/paintings', function (req, res) {
   res.render('paintings.html',
-  { title : 'Home' }
+  { title : 'paintings' }
   )
 })
+
+app.use(express.static('./ceramics'));
 app.get('/ceramics', function (req, res) {
   res.render('ceramics.html',
-  { title : 'Home' }
+  { title : 'ceramics' }
   )
 })
 
