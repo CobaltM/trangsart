@@ -38,7 +38,7 @@ app.get('/ceramics', function (req, res) {
   res.render('ceramics.html',
   { title : 'ceramics' }
   )
-//})
+})
 
 app.listen(3000)
 app.listen(8080, () => {
