@@ -2,10 +2,13 @@ const express = require('express');
 const app = express();
 app.use(express.static('assets'));
 app.use(express.static('images'));
-
+app.use(express.static('./public'));
+var engines = require('consolidate');
+app.set('views', __dirname + '/views');
+app.engine('html', engines.mustache);
+app.set('view engine', 'html');
 
 app.use(express.static('./'));
-app.set("view engine", "ejs");
 app.get('/', function (req, res) {
   res.render('index.html',
   { title : 'Home' }
@@ -35,7 +38,7 @@ app.get('/ceramics', function (req, res) {
   res.render('ceramics.html',
   { title : 'ceramics' }
   )
-})
+//})
 
 app.listen(3000)
 app.listen(8080, () => {
