@@ -14,9 +14,9 @@ app.get('/', function (req, res) {
   { title : 'Home' }
   )
 })
-app.use(express.static('./holden-ham-crochet'));
-app.get('/holden-ham-crochet', function (req, res) {
-  res.render('holden-ham-crochet.html',
+app.use(express.static('./crochet'));
+app.get('/crochet', function (req, res) {
+  res.render('crochet.html',
   { title : 'crochet' }
   )
 })
