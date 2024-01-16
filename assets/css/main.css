@@ -3872,7 +3872,7 @@ input, select, textarea {
 
 			#main > .posts > * {
 				padding: 4rem;
-				width: 50%;
+				width: 100%;
 			}
 
 			#main > .posts > article {
