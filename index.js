@@ -20,7 +20,7 @@ app.get('/crochet', function (req, res) {
   { title : 'crochet' }
   )
 })
-app.get('/ArtFairs', function (req, res) {
+app.get('./ArtFairs', function (req, res) {
   res.render('ArtFairs.html',
   { title : 'Events' }
   )
