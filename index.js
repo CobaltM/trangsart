@@ -20,6 +20,7 @@ app.get('/crochet', function (req, res) {
   { title : 'crochet' }
   )
 })
+app.use(express.static('./ArtFairs'));
 app.get('./ArtFairs', function (req, res) {
   res.render('ArtFairs.html',
   { title : 'Events' }
