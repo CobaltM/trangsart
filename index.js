@@ -20,6 +20,11 @@ app.get('/crochet', function (req, res) {
   { title : 'crochet' }
   )
 })
+app.get('/ArtFairs', function (req, res) {
+  res.render('ArtFairs.html',
+  { title : 'Events' }
+  )
+})
 app.use(express.static('./prints'));
 app.get('/prints', function (req, res) {
   res.render('prints.html',
