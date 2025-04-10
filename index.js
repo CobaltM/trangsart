@@ -20,10 +20,22 @@ app.get('/crochet', function (req, res) {
   { title : 'crochet' }
   )
 })
-app.use(express.static('./ArtFairs'));
-app.get('/ArtFairs', function (req, res) {
-  res.render('ArtFairs.html',
+app.use(express.static('./Events'));
+app.get('/Events', function (req, res) {
+  res.render('Events.html',
   { title : 'Events' }
+  )
+})
+app.use(express.static('./About'));
+app.get('/About', function (req, res) {
+  res.render('About.html',
+  { title : 'About' }
+  )
+})
+app.use(express.static('./Contacts'));
+app.get('/Contacts', function (req, res) {
+  res.render('Contact.html',
+  { title : 'Contact Info' }
   )
 })
 app.use(express.static('./prints'));
