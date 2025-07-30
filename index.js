@@ -57,6 +57,19 @@ app.get('/ceramics', function (req, res) {
   { title : 'ceramics' }
   )
 })
+app.use(express.static('./impressionistic'));
+app.get('/impressionistic', function (req, res) {
+  res.render('impressionistic.html',
+  { title : 'impressionistic' }
+  )
+})
+
+app.use(express.static('./book&film'));
+app.get('/book&film', function (req, res) {
+  res.render('book&film.html',
+  { title : 'book&film' }
+  )
+})
 
 app.listen(3000)
 app.listen(8080, () => {
