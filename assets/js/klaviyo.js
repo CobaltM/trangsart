@@ -1,19 +1,24 @@
 /*
 	Klaviyo integration for trangs.art
 	----------------------------------
-	Everything you need to configure lives in the CONFIG block right below.
-	Fill in the two values, redeploy, and the newsletter signup in the footer
-	of every page starts sending subscribers to Klaviyo.
+	Everything you can configure lives in the CONFIG block right below: the
+	popup's wording and timing, the tracking toggle, and the two Klaviyo IDs.
 
-	Where to find the values:
+	The IDs are already set and working. If they ever need changing:
 
 	  PUBLIC_API_KEY  Klaviyo > Settings > API keys > "Public API key / Site ID".
-	                  It is 6 characters (e.g. "aBc123") and is safe to ship in
-	                  public JavaScript. NEVER put a private API key here.
+	                  It is 6 characters and is safe to ship in public
+	                  JavaScript. NEVER put a private API key here.
 
 	  LIST_ID         Klaviyo > Audience > Lists & Segments > open your list.
 	                  The ID is the 6-character code in the browser address bar
 	                  and under the list's Settings tab.
+
+	This file provides:
+	  - Klaviyo onsite tracking on every page
+	  - the newsletter signup in the footer
+	  - the welcome popup for first-time visitors
+	  - a "Viewed Gallery" event on each gallery page
 */
 
 (function () {
@@ -27,7 +32,7 @@
 		PUBLIC_API_KEY: 'Vbe6AQ',
 
 		// REQUIRED for the footer signup form. The list new subscribers join.
-		LIST_ID: 'YOUR_LIST_ID',
+		LIST_ID: 'RmrNAX',
 
 		// Klaviyo API version. Only change this if Klaviyo's docs tell you to.
 		API_REVISION: '2026-07-15',
@@ -113,9 +118,29 @@
 		(document.head || document.documentElement).appendChild(s);
 	}
 
-	// The onsite script replaces this array with its real API once it loads,
-	// so anything pushed before then is replayed afterwards.
-	window.klaviyo = window.klaviyo || [];
+	/*
+		Send an event to Klaviyo.
+
+		Timing matters here. klaviyo.js loads asynchronously and pulls in its
+		tracking modules afterwards, so calls can happen before it is ready.
+		Klaviyo's loader creates window._learnq for exactly that: it is the
+		queue it drains once the modules are up. window.klaviyo is the object
+		those modules install later.
+
+		So: use window.klaviyo when it is a real object, otherwise queue on
+		_learnq. Never assign window.klaviyo ourselves — pre-defining it as an
+		array shadows the object Klaviyo is about to install, and everything
+		pushed into that array is silently thrown away.
+	*/
+	function klaviyoPush(args) {
+		if (window.klaviyo && !Array.isArray(window.klaviyo) && typeof window.klaviyo.push === 'function') {
+			window.klaviyo.push(args);
+			return;
+		}
+
+		window._learnq = window._learnq || [];
+		window._learnq.push(args);
+	}
 
 	loadKlaviyoOnsite();
 
@@ -164,7 +189,7 @@
 		if (!key || !GALLERY_PAGES[key])
 			return;
 
-		window.klaviyo.push(['track', 'Viewed Gallery', {
+		klaviyoPush(['track', 'Viewed Gallery', {
 			Category: GALLERY_PAGES[key],
 			URL: window.location.href
 		}]);
@@ -261,7 +286,7 @@
 
 			subscribe(email, options.source).then(function () {
 				// Tie this browser's future activity to the subscriber.
-				window.klaviyo.push(['identify', { '$email': email }]);
+				klaviyoPush(['identify', { '$email': email }]);
 
 				// Remember, so the popup never bothers this person again.
 				remember(STORAGE.subscribed, '1');
