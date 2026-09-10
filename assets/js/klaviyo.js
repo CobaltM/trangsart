@@ -32,6 +32,9 @@
 		PUBLIC_API_KEY: 'Vbe6AQ',
 
 		// REQUIRED for the footer signup form. The list new subscribers join.
+		// Verified 2026-09-10: Klaviyo returns 202 Accepted for this list under
+		// company Vbe6AQ. Note RbAhPi is NOT a list (it is a segment, and
+		// segments cannot receive subscriptions) -- do not put it here.
 		LIST_ID: 'RmrNAX',
 
 		// Klaviyo API version. Only change this if Klaviyo's docs tell you to.
