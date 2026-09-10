@@ -70,8 +70,8 @@
 	cursor: default;
 }
 
-/* Screen-reader-only label. */
-#footer .klaviyo-signup .sr-only {
+/* Screen-reader-only label (footer form and popup). */
+.klaviyo-signup .sr-only {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -102,6 +102,208 @@
 		-ms-flex: 1 1 100%;
 		flex: 1 1 100%;
 		width: 100%;
+	}
+
+}
+
+/* -------------------------------------------------- Welcome popup */
+
+.klaviyo-popup-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	padding: 1.5rem;
+	background-color: rgba(33, 41, 49, 0.85);
+	z-index: 20000;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease;
+	transition: opacity 0.3s ease;
+	overflow-y: auto;
+}
+
+.klaviyo-popup-overlay[hidden] {
+	display: none;
+}
+
+.klaviyo-popup-overlay.is-visible {
+	opacity: 1;
+}
+
+.klaviyo-popup {
+	position: relative;
+	background-color: #ffffff;
+	color: #212931;
+	width: 100%;
+	max-width: 30rem;
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.35);
+	-webkit-transform: translateY(1.25rem);
+	transform: translateY(1.25rem);
+	-webkit-transition: transform 0.3s ease;
+	transition: transform 0.3s ease;
+}
+
+.klaviyo-popup-overlay.is-visible .klaviyo-popup {
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+
+.klaviyo-popup-image {
+	line-height: 0;
+}
+
+.klaviyo-popup-image img {
+	width: 100%;
+	height: 14rem;
+	object-fit: cover;
+	display: block;
+}
+
+.klaviyo-popup-body {
+	padding: 2.5rem;
+	text-align: center;
+}
+
+.klaviyo-popup-body h2 {
+	margin: 0 0 0.75rem 0;
+	font-size: 1.5rem;
+}
+
+.klaviyo-popup-body .klaviyo-popup-text {
+	margin: 0 0 1.75rem 0;
+	color: rgba(33, 41, 49, 0.65);
+	font-size: 0.9rem;
+	line-height: 1.75;
+}
+
+.klaviyo-popup-form {
+	margin: 0;
+}
+
+.klaviyo-popup-form input[type="email"] {
+	margin: 0 0 0.75rem 0;
+	width: 100%;
+}
+
+.klaviyo-popup-form .button {
+	margin: 0;
+	width: 100%;
+}
+
+.klaviyo-popup-form .klaviyo-signup-status {
+	display: none;
+	margin: 1rem 0 0 0;
+	font-size: 0.8rem;
+	font-weight: 600;
+}
+
+.klaviyo-popup-form .klaviyo-signup-status.is-visible {
+	display: block;
+}
+
+.klaviyo-popup-form .klaviyo-signup-status.is-success {
+	color: #18bfef;
+}
+
+.klaviyo-popup-form .klaviyo-signup-status.is-error {
+	color: #cf5252;
+}
+
+.klaviyo-popup-form.is-busy .button {
+	opacity: 0.5;
+	cursor: default;
+}
+
+/* The small "No thanks" opt-out under the form. */
+.klaviyo-popup-dismiss {
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	border: 0;
+	/* Massively styles every <button> like a .button; undo that here. */
+	box-shadow: none;
+	height: auto;
+	line-height: 1.5;
+	padding: 0;
+	margin: 1.25rem 0 0 0;
+	cursor: pointer;
+	color: rgba(33, 41, 49, 0.5);
+	font-family: 'Source Sans Pro', Helvetica, sans-serif;
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	border-bottom: solid 1px rgba(33, 41, 49, 0.25);
+	-webkit-transition: color 0.2s ease, border-color 0.2s ease;
+	transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.klaviyo-popup-dismiss:hover {
+	color: #18bfef;
+	border-bottom-color: #18bfef;
+}
+
+.klaviyo-popup-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 3rem;
+	height: 3rem;
+	line-height: 3rem;
+	padding: 0;
+	background: none;
+	border: 0;
+	box-shadow: none;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	color: #212931;
+	font-size: 1.75rem;
+	opacity: 0.4;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
+	z-index: 1;
+}
+
+.klaviyo-popup-close:hover {
+	opacity: 1;
+}
+
+/* Keep the close button legible when it sits on top of an image. */
+.klaviyo-popup.has-image .klaviyo-popup-close {
+	color: #ffffff;
+	opacity: 0.85;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 480px) {
+
+	.klaviyo-popup-body {
+		padding: 2rem 1.5rem;
+	}
+
+	.klaviyo-popup-image img {
+		height: 10rem;
+	}
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.klaviyo-popup-overlay,
+	.klaviyo-popup {
+		-webkit-transition: none;
+		transition: none;
 	}
 
 }

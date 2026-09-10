@@ -47,9 +47,11 @@
 		// The welcome popup shown to first-time visitors.
 		POPUP: {
 
-			// Set to false to turn the popup off entirely. Do this if you decide
-			// to build a popup inside Klaviyo instead, so you don't get two.
-			ENABLED: true,
+			// OFF as of 2026-09-10, on purpose. The "GET 15% OFF" popup built in
+			// the Klaviyo dashboard is the one in use, and two popups would
+			// fight each other. Everything below is kept and still works —
+			// flip this back to true if you ever retire the Klaviyo one.
+			ENABLED: false,
 
 			// How long to wait before showing it.
 			DELAY_SECONDS: 8,
