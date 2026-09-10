@@ -11,6 +11,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="assets/css/klaviyo.css" />
+		<!-- Klaviyo: configure your keys in assets/js/klaviyo.js -->
+		<script src="assets/js/klaviyo.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -156,6 +159,18 @@
 					<footer id="footer">
 
 						<section class="split contact">
+							<section class="klaviyo-newsletter">
+								<h3>Newsletter</h3>
+								<form class="klaviyo-signup" novalidate>
+									<div class="klaviyo-signup-row">
+										<label class="sr-only" for="klaviyo-email-index">Email address</label>
+										<input type="email" id="klaviyo-email-index" name="email" placeholder="your@email.com" autocomplete="email" required />
+										<button type="submit" class="button primary">Sign up</button>
+									</div>
+									<p class="klaviyo-signup-note">New paintings, prints, and show dates &mdash; straight to your inbox. Unsubscribe any time.</p>
+									<p class="klaviyo-signup-status" role="status" aria-live="polite"></p>
+								</form>
+							</section>
 <!--							<section class="alt">-->
 <!--								<h3>Address</h3>-->
 <!--								<p>1234 Somewhere Road #87257<br />-->
