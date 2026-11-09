@@ -1,0 +1,57 @@
+name: Deploy to trangsart.com
+
+# Every push to main rebuilds the optimized site and uploads it to S3 + CloudFront.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write   # lets GitHub log in to AWS with a short-lived token (no stored keys)
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  BUCKET: trangsart-site-550413898093
+  DISTRIBUTION_ID: E9P8N1L2IJW5
+  AWS_REGION: ca-central-1
+  ROLE_ARN: arn:aws:iam::550413898093:role/trangsart-github-deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build optimized site
+        run: |
+          pip install pillow
+          python scripts/build_site.py . _site
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload to S3
+        run: |
+          aws s3 sync _site/assets "s3://$BUCKET/assets" --delete --only-show-errors --cache-control "public,max-age=86400"
+          aws s3 sync _site/images "s3://$BUCKET/images" --delete --only-show-errors --cache-control "public,max-age=604800"
+          # Pages have no file extension (e.g. /Events), so set their type explicitly.
+          for f in _site/*; do
+            [ -f "$f" ] || continue
+            aws s3 cp "$f" "s3://$BUCKET/$(basename "$f")" --only-show-errors \
+              --content-type "text/html; charset=utf-8" --cache-control "public,max-age=300"
+          done
+
+      - name: Refresh CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*" --query Invalidation.Id --output text
